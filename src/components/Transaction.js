@@ -1,14 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-const Transaction = () => {
+import TransactionsList from './TransactionsList';
+
+const Transaction = props => {
+  console.log(props.transaction);
+  const transaction = props.transaction;
   return (
     <tr>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
+      <td>{transaction.posted_at}</td>
+      <td>{transaction.description}</td>
+      <td>{transaction.category}</td>
+      <td>{transaction.amount}</td>
     </tr>
-  )
-}
+  );
+};
 
-export default Transaction
+export default Transaction;
