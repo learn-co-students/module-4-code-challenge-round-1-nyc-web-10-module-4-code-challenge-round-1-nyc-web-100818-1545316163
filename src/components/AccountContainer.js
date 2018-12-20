@@ -35,7 +35,7 @@ class AccountContainer extends Component {
   }
 
   renderTransactions = () => {
-    return this.state.transactions.filter(t => t.description.toLowerCase().includes(this.state.searchValue.toLowerCase()))
+    return this.state.transactions.filter(t => t.description.toLowerCase().includes(this.state.searchValue.toLowerCase()) || t.category.toLowerCase().includes(this.state.searchValue.toLowerCase()))
   }
 
   render() {
