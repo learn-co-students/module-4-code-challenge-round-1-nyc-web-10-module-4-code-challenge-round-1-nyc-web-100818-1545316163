@@ -7,7 +7,11 @@ class AccountContainer extends Component {
 
   state = {
     transactions: [],
-    searchTerm: ""
+    searchTerm: "",
+    sort: {
+      sortBy: "posted_at",
+      direction: "desc"
+    }
   }
 
   componentDidMount() {
@@ -27,6 +31,15 @@ class AccountContainer extends Component {
 
   onSearchChange = searchTerm => { this.setState({ searchTerm }) }
 
+  onSortClick = (sortBy, direction) => { 
+    this.setState(state => { 
+      if (state.sort.sortBy === sortBy) {
+        direction = (state.sort.direction === "desc") ? "asc" : "desc"
+      }
+      return { sort: { sortBy, direction } }
+     }) 
+  }
+
   get filteredResult() {
     return this.state.searchTerm === "" 
       ? this.state.transactions
@@ -36,12 +49,26 @@ class AccountContainer extends Component {
         })
   }
 
+  get sortedResults() {
+    const sortedResults = [...this.filteredResult]
+    const { sortBy, direction } = this.state.sort
+    const directionModifier = direction === "desc" ? -1 : 1
+    sortedResults.sort((a, b) => {
+      if (typeof a[sortBy] === 'string') {
+        return a[sortBy].localeCompare(b[sortBy]) * directionModifier
+      } else {
+        return (a[sortBy] < b[sortBy] ? -1 : (a[sortBy] > b[sortBy] ? 1 : 0)) * directionModifier
+      }
+    })
+    return sortedResults
+  }
+
   render() {
-    const { state: { searchTerm }, onSearchChange, filteredResult } = this
+    const { state: { sort, searchTerm }, onSortClick, onSearchChange, sortedResults } = this
     return (
       <div>
         <Search searchTerm={searchTerm} onSearchChange={onSearchChange} />
-        <TransactionsList transactions={filteredResult} />
+        <TransactionsList sort={sort} transactions={sortedResults} onSortClick={onSortClick} />
       </div>
     )
   }

@@ -11,12 +11,4 @@ const Transaction = ({ transaction }) => {
   )
 }
 
-// {
-//   id: 1,
-//   posted_at: "2017-02-28 11:00:00",
-//   description: "Leather Pants, Gap co.",
-//   category: "Fashion",
-//   amount: -20000
-// }
-
 export default Transaction
