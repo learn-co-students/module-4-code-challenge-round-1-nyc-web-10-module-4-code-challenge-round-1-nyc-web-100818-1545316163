@@ -1,6 +1,13 @@
 import React from 'react'
+import Transaction from './Transaction'
 
-const TransactionsList = () => {
+// FUNCTIONAL COMPONENT SO NO THIS
+const TransactionsList = (props) => {
+  console.log("TransactionsList props:", props.transactions);
+
+  const mappedTransactions = props.transactions.map((t) => {
+    return <Transaction key={t.id} transaction={t}/>
+  })
 
   return (
     <table className="ui celled striped padded table">
@@ -28,7 +35,7 @@ const TransactionsList = () => {
           </th>
         </tr>
 
-        {"... your code here..."}
+        {mappedTransactions}
 
       </tbody>
     </table>
