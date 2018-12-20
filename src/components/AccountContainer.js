@@ -36,7 +36,7 @@ class AccountContainer extends Component {
 
   render() {
     const filteredTransactions = this.state.transactions.filter((transaction) => {
-      return transaction.description.toLowerCase().includes(this.state.searchTerm)
+      return transaction.description.toLowerCase().includes(this.state.searchTerm) || transaction.category.toLowerCase().includes(this.state.searchTerm) 
     })
     return (
       <div>
