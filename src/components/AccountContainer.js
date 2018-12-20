@@ -2,28 +2,47 @@ import React, { Component } from 'react'
 import TransactionsList from './TransactionsList'
 import Search from './Search'
 import {transactions} from '../transactionsData'
+const ApiUrl = 'https://boiling-brook-94902.herokuapp.com/transactions'
 
 class AccountContainer extends Component {
 
   constructor() {
     super()
-
-    // get a default state working with the data imported from TransactionsData
-    // use this to get the functionality working
-    // then replace the default transactions with a call to the API
-
+    this.state = {
+      searchValue: '',
+      transactions: []
+    }
   }
 
-  handleChange(event) {
-    // your code here
+  fetchApi = () => {
+    fetch(ApiUrl)
+      .then(res => res.json())
+      .then(transactions => {
+        this.setState({
+          transactions
+        })
+      })
+  }
+
+  componentDidMount() {
+    this.fetchApi()
+  }
+
+  handleChange = (searchValue) => {
+    this.setState({
+      searchValue
+    })
+  }
+
+  renderTransactions = () => {
+    return this.state.transactions.filter(t => t.description.toLowerCase().includes(this.state.searchValue.toLowerCase()))
   }
 
   render() {
-
     return (
       <div>
-        <Search />
-        <TransactionsList />
+        <Search handleChange={this.handleChange}/>
+        <TransactionsList transaction={this.renderTransactions()}/>
       </div>
     )
   }
