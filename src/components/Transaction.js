@@ -1,12 +1,13 @@
 import React from 'react'
-
-const Transaction = () => {
+// TO DO: DESCONSTRUCT LATER IF U HAVE TIME
+const Transaction = (props) => {
+  // console.log("Transaction props:", props);
   return (
     <tr>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
+      <td>{props.transaction.posted_at}</td>
+      <td>{props.transaction.description}</td>
+      <td>{props.transaction.category}</td>
+      <td>{props.transaction.amount}</td>
     </tr>
   )
 }
