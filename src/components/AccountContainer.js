@@ -29,7 +29,11 @@ class AccountContainer extends Component {
   }
   handleDisplay = () => {
 
-    const toRender = this.state.transactions.filter(transObj => transObj.category.toLowerCase().includes(this.state.searchBox.toLowerCase()))  
+    const toRender = this.state.transactions.filter(transObj =>  (transObj.category.toLowerCase().includes(this.state.searchBox.toLowerCase()) ||
+     transObj.description.toLowerCase().includes(this.state.searchBox.toLowerCase()))
+    )
+     // return transObj
+    // }
     // const toRender = this.state.transactions.filter(transObj => transObj.category.includes(this.state.searchBox))
 
     return toRender
