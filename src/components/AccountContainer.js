@@ -3,33 +3,39 @@ import TransactionsList from './TransactionsList';
 import Search from './Search';
 import { transactions } from '../transactionsData';
 
+const URL = 'https://boiling-brook-94902.herokuapp.com/transactions';
+
 class AccountContainer extends Component {
-  // constructor() {
-  //   super()
-  //   this.state
-
-  //   // get a default state working with the data imported from TransactionsData
-  //   // use this to get the functionality working
-  //   // then replace the default transactions with a call to the API
-
-  // }
-
   state = {
-    transactions: [{ transactions }]
+    transactions: [],
+    query: 'Search Term'
   };
 
+  // Initial set state, we get data back from our API and use setState to update our state to the parsed response
+  componentDidMount() {
+    fetch(URL)
+      .then(r => r.json())
+      .then(data => {
+        // console.log(data);
+        this.setState({ transactions: data });
+      });
+  }
+
   handleChange = event => {
-    console.log(this.state);
+    const userInput = event.target.value;
+    console.log(userInput);
+    this.setState({ query: userInput });
   };
 
   render() {
     return (
       <div>
-        <Search />
-        <TransactionsList />
+        <Search search={this.state} />
+        <TransactionsList transactions={this.state.transactions} />
       </div>
     );
   }
 }
 
+// onChange = { handleChange } value = { this.state.query }
 export default AccountContainer;
