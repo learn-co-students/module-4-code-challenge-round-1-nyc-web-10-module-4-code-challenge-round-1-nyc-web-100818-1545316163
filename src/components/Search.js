@@ -2,6 +2,7 @@ import React from 'react'
 
 const Search = (props) => {
   console.log("Search props:", props);
+  // make sure to add in value to make it a CONTROLLED FORM!!!!!!
   return (
     <div className="ui huge fluid icon input">
       <input
